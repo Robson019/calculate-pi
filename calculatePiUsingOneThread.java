@@ -1,22 +1,29 @@
 public class calculatePiUsingOneThread {
-    private static final int numThreads = 2;
-    static double pi = 0;
-
     public static void main(String[] args) throws InterruptedException {
-        long startTime = System.nanoTime();
+        // repetindo processo 5x
+        for (int i = 1; i <= 5; i++) {
+            long startTime = System.nanoTime(); // Dando inicio a contagem de ms
 
-        Thread thread = new MyThread();
-        thread.start();
-        thread.join();
+            // Como usamos apenas uma thread,
+            // Nao vamos usar memoria compartilhada
 
-        long endTime = System.nanoTime();
-        long duration = endTime - startTime;
-        System.out.printf("Duração: %dms\n", duration/1000000);
+            Thread thread = new MyThread(); // Criando thread unica
+            thread.start(); // Dando inicio a thread
+            thread.join(); // Main espera fim das threads
+
+
+            long endTime = System.nanoTime(); // marcando fim da contagem
+            long duration = endTime - startTime; // calculando contagem
+            System.out.printf("Duração[%d]: %dms\n", i, duration/1000000); // exibindo duracao
+            System.out.println("===========================");
+        }
     }
     
+    // Criando class para estender thread original
     public static class MyThread extends Thread {
         public MyThread() {}
         
+        // Sobrescrevendo run da thread original
         @Override
         public void run() {
             int n = 1000000;
