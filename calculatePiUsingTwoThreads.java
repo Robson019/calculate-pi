@@ -74,8 +74,8 @@ public class calculatePiUsingTwoThreads {
                 }
             }
 
-            double pi = sum * 4;
-            memory[threadId] = pi; // Sobrescrevendo parcela de pi na memoria compartilhada
+            double partialPi = sum * 4;
+            memory[threadId] = partialPi; // Sobrescrevendo parcela de pi na memoria compartilhada
         }
     }
 }
