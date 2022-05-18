@@ -6,6 +6,7 @@ public class calculatePiUsingThreads {
             System.out.println("===========================");
             int numThreads = k;
             int memorySize = k;
+            long portionsOfMedia = 0;
             double numberOfElementsPerThread = 1000000/numThreads;
     
             // repetindo 5x
@@ -36,9 +37,13 @@ public class calculatePiUsingThreads {
     
                 long endTime = System.nanoTime(); // marcando fim da contagem
                 long duration = endTime - startTime; // calculando contagem
+                portionsOfMedia += duration;
                 System.out.printf("Duração[%d]: %dms\n", c, duration/1000000); // exibindo duracao
                 System.out.println("===========================");
             }
+            double media = portionsOfMedia/5;
+            System.out.printf("Duração média: %.2fms\n", media/1000000);
+            System.out.println("===========================");
         }
     }
 
