@@ -24,7 +24,7 @@ public class calculatePiUsingThreads {
                 Thread[] threads = new Thread[numThreads]; // Criando thread
                 for (int i = 0; i < numThreads; i++) {
                     int startOfRange = (int) numberOfElementsPerThread * i;
-                    int endOfRange = startOfRange + (int)numberOfElementsPerThread;
+                    int endOfRange = startOfRange + (int) numberOfElementsPerThread;
                     threads[i] = new MyThreads(i, memory, startOfRange, endOfRange);
                     threads[i].start(); // Dando inicio a thread
                 }
