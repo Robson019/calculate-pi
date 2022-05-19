@@ -1,16 +1,19 @@
 public class calculatePiUsingThreads {
-
     public static void main(String[] args) throws InterruptedException {
+        // criando laço para: 1, 2, 4, 8, 16 e 32 threads
         for (int k = 1; k <= 32; k *= 2) {
             System.out.printf("Calculando com %d thread(s)\n", k);
             System.out.println("===========================");
-            int numThreads = k;
-            int memorySize = k;
-            long portionsOfMedia = 0;
+            int numThreads = k; // numero de threads atual
+            int memorySize = k; // numero de areas da memoria compartilhada
+            // vetor para armazenar calculo de cada uma das cinco execucoes
+            long[] duration = new long[5]; 
+            long sumOfMedia = 0;
+            // variavel para calcular o numero de somas por thread
             double numberOfElementsPerThread = 1000000/numThreads;
     
-            // repetindo 5x
-            for (int c = 1; c <= 5; c++) {
+            // repetindo 5x cada thread
+            for (int c = 0; c < 5; c++) {
                 long startTime = System.nanoTime(); // Dando inicio a contagem
     
                 double[] memory = new double[memorySize]; // Criando area da memoria compartilhada
@@ -18,7 +21,7 @@ public class calculatePiUsingThreads {
                     memory[i] = i;
                 }
     
-                Thread[] threads = new Thread[numThreads]; // Criando thread unica
+                Thread[] threads = new Thread[numThreads]; // Criando thread
                 for (int i = 0; i < numThreads; i++) {
                     int startOfRange = (int) numberOfElementsPerThread * i;
                     int endOfRange = startOfRange + (int)numberOfElementsPerThread;
@@ -28,7 +31,7 @@ public class calculatePiUsingThreads {
             
                 waitThreads(threads); // Main espera fim das threads
         
-                double pi = 0; // somando resultados de cada parte da memoria
+                double pi = 0; // somando resultados da memoria compartilhada
                 for (double portion : memory) {
                     pi += portion;
                 }
@@ -36,13 +39,29 @@ public class calculatePiUsingThreads {
                 System.out.printf("Valor pi: %2f\n", pi); // exibindo pi
     
                 long endTime = System.nanoTime(); // marcando fim da contagem
-                long duration = endTime - startTime; // calculando contagem
-                portionsOfMedia += duration;
-                System.out.printf("Duração[%d]: %dms\n", c, duration/1000000); // exibindo duracao
+                duration[c] = endTime - startTime; // calculando contagem
+                sumOfMedia += duration[c]; // adicionando resultado na media
+                System.out.printf("Duração[%d]: %dms\n", c + 1, duration[c]/1000000); // exibindo duracao
                 System.out.println("===========================");
             }
-            double media = portionsOfMedia/5;
-            System.out.printf("Duração média: %.2fms\n", media/1000000);
+    
+            double media = sumOfMedia/5; // calculando media
+            System.out.printf("%d - Duração média: %.2fms\n", k, media/1000000); // exibindo media
+
+            // calculando parcelas do desvio
+            double[] portionsOfDetour = new double[5];
+            for (int j = 0; j < 5; j++) {
+                portionsOfDetour[j] = duration[j] - media;
+                Math.pow(portionsOfDetour[j], 2);
+            }
+
+            double detour = 0;
+            for (double portion : portionsOfDetour) {
+                detour += portion; // somando todas as parcelas
+            }
+            
+            detour = Math.sqrt(detour/5); // calculando desvio da thread
+            System.out.printf("%d - Desvio Padrão: %.2fms\n", k, detour); // exibindo desvio
             System.out.println("===========================");
         }
     }
@@ -78,6 +97,7 @@ public class calculatePiUsingThreads {
                 partialSumOfPi += portion; 
             }
             memory[threadId] = partialSumOfPi;
+            // adicionando calculo parcial de pi a memoria compartilhada
         }
     }
 }
