@@ -1,6 +1,6 @@
 # Calculate PI
 
-O objetivo deste projeto é realizar o cálculo do valor de PI utilizando a linguagem de programação Java e calculando a velocidade do cálculo utilizando 1, 2, 4, 8, 16 e 32 threads. Para cada contexto (isto é, para cada número de threads), será demonstrado o tempo de execução de cada thread, a duração média de 5 execuções e o desvio-padrão do conjunto de dados.
+O objetivo deste projeto é realizar o cálculo do valor de PI utilizando a linguagem de programação Java e apresentar a velocidade do cálculo utilizando 1, 2, 4, 8, 16 e 32 threads. Para cada contexto (isto é, para cada número de threads), será demonstrado o tempo de execução de cada thread, a duração média de 5 execuções e o desvio-padrão do conjunto de dados.
 
 ## Exemplo explicado do resultado da execução do programa:
 
@@ -130,7 +130,7 @@ Duração[5]: 9ms # tempo necessário para calcular o valor de pi na 5ª execuç
 
 ## Conclusões
 
-Podemos perceber que, conforme o número de threads utilizadas aumenta, o tempo necessário para se calcular o valor de pi diminui. Porém, se pararmos para analisar o tempo médio de execução do cálculo de pi com 8, 16 e 32 threads, repectivamente, vamos notar um comportamento anômalo: a duração média está aumentando, e não diminuindo, como era de se esperar (já que temos mais linhas de execução dividindo o trabalho). Com 8 threads o tempo de execução médio foi `7,13ms`, com 16 foi `7,52ms` e com 32 foi `7,91ms`. Porque isso acontece? Uma possível explicação é que não necessariamente quanto mais threads você colocar para trabalhar vai refletir em um trabalho mais rápido. Isso se dá pelo fato de que há tantos processos competindo pelo processador que acaba ocorrendo muito mais trocas de contexto e demora mais para uma thread voltar a ter o processador para si.
+Podemos perceber que, conforme o número de threads utilizadas aumenta, o tempo necessário para se calcular o valor de pi diminui. Porém, se pararmos para analisar o tempo médio de execução do cálculo de pi com 8, 16 e 32 threads, repectivamente, vamos notar um comportamento anômalo: a duração média está aumentando, e não diminuindo, como era de se esperar (já que temos mais linhas de execução dividindo o trabalho). Com 8 threads o tempo de execução médio foi `7,13ms`, com 16 foi `7,52ms` e com 32 foi `7,91ms`. Porque isso acontece? Uma possível explicação é que não necessariamente quanto mais threads houverem para trabalhar, refletirá em um trabalho mais rápido. Isso se dá pelo fato de que há tantos processos competindo pelo processador que acabam ocorrendo muito mais trocas de contexto, o que ocasiona uma maior demora para que a thread recupere o processador para si.
 
 ## Informações complementares
 
